@@ -4,7 +4,7 @@ using UnityEngine;
 using static MelonLoader.MelonLogger;
 using System.Reflection;
 
-[assembly: MelonInfo(typeof(MelonLoaderMod1.Core), "MelonLoaderMod1", "1.0.0", "Musa-", null)]
+[assembly: MelonInfo(typeof(LittleBitMuchAdjustment.Core), "LittleBitMuchAdjustment", "1.0.0", "jumpthe11", null)]
 [assembly: MelonGame("EggHatcher", "VolcanoPrincess")]
 
 namespace LittleBitMuchAdjustment
