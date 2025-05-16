@@ -124,8 +124,87 @@ namespace LittleBitMuchAdjustment
                 MelonLogger.Error($"[SureAddTalent Patch Error] {ex}");
             }
         }
-    }
 
+    }
+     // Advanced version - automatically collect every game turn
+        [HarmonyPatch(typeof(HorseSys), "TurnHorseIncome")]
+        public class TurnHorseIncomePatch
+        {
+            [HarmonyPostfix]
+            public static void Postfix(HorseSys __instance)
+            {
+                // This will automatically collect all production after the game generates it
+                // Uncomment this if you want automatic collection every turn
+                /*
+                // Get references to private fields
+                FieldInfo horseMilkField = AccessTools.Field(typeof(HorseSys), "horseMilk");
+                FieldInfo horseProductionField = AccessTools.Field(typeof(HorseSys), "horseProduction");
+                
+                if (horseMilkField == null || horseProductionField == null)
+                {
+                    MelonLogger.Error("Failed to get reflection references in patch!");
+                    return;
+                }
+                
+                int[] horseMilk = (int[])horseMilkField.GetValue(__instance);
+                int[] horseProduction = (int[])horseProductionField.GetValue(__instance);
+                
+                if (horseMilk == null || horseProduction == null || __instance.ownHorse.Count == 0)
+                {
+                    return;
+                }
+                
+                int totalMilk = 0;
+                int totalLightFruit = 0;
+                int totalCoins = 0;
+                
+                // Loop through all horses and collect production
+                for (int i = 0; i < __instance.ownHorse.Count; i++)
+                {
+                    // Collect milk
+                    if (horseMilk[i] > 0)
+                    {
+                        totalMilk += horseMilk[i];
+                        __instance.ownHorse[i].milkNum += horseMilk[i];
+                        horseMilk[i] = 0;
+                    }
+                    
+                    // Collect production
+                    if (horseProduction[i] != 0)
+                    {
+                        if (horseProduction[i] == 2)
+                        {
+                            totalLightFruit++;
+                        }
+                        else
+                        {
+                            totalCoins += horseProduction[i];
+                        }
+                        horseProduction[i] = 0;
+                    }
+                }
+                
+                // Add all collected items
+                if (totalMilk > 0)
+                    ItemSys.AddItem(Constant.horseMilkIndex, totalMilk, true);
+                
+                if (totalLightFruit > 0)
+                    ItemSys.AddItem(Constant.lightFruit, totalLightFruit, true);
+                
+                if (totalCoins > 0)
+                    DataSys.AddCoin(BillType.stableIncome, totalCoins);
+                
+                // Update the private fields with our modified arrays
+                horseMilkField.SetValue(__instance, horseMilk);
+                horseProductionField.SetValue(__instance, horseProduction);
+                
+                MelonLogger.Msg($"Auto-collected: {totalMilk} milk, {totalLightFruit} light fruit, {totalCoins} coins");
+                
+                // Update UI
+                __instance.UpdateStableUi();
+                */
+            }
+        }
 
 
 
